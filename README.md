@@ -1,7 +1,7 @@
 # Blog-Python
 
 ## Activer l'environnement virtuel
--. venv\Scripts\activate
+- venv\Scripts\activate
 
 ## Installer Flask dans l'environnement virtuel
 - pip install flask

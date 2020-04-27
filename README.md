@@ -1,22 +1,23 @@
-"# Blog-Python" 
-Activer l'environnement virtuel
-. venv\Scripts\activate
+# Blog-Python
 
-installer Flask dans l'environnement virtuel
-pip3 install flask
+## Activer l'environnement virtuel
+-. venv\Scripts\activate
 
-lancer l'application
-set FLASK_APP=application.py
+## Installer Flask dans l'environnement virtuel
+- pip install flask
 
-Automatisation mise à jour
-set FLASK_ENV=development
+## Lancer l'application
+- set FLASK_APP=application.py
 
-lancer le run
-python -m flask run
+##Automatisation mise à jour
+- set FLASK_ENV=development
+
+## Lancer le run
+- python -m flask run
 ou 
-flask run
+- flask run
 
-base de données
-from application import db 
-db.create_all()
+## Base de données
+- from application import db 
+- db.create_all()
 

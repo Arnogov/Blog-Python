@@ -63,7 +63,7 @@ def create_user():
                 # On a réussi notre login, on inscrit donc le l'identifiant de l'utilisateur dans la variable de session
                 session['user_id'] = user.id
                 # on redirige l'utilisateur vers la liste des tweets
-                return redirect(url_for('display_tweets'))
+                return redirect(url_for('display_posts'))
             else:
                 # Si l'utilisateur n'existe pas ou que les mots de passes ne correspondent pas
                 # on renvoie l'utilisateur vers le formulaire de login.
@@ -74,7 +74,7 @@ def create_user():
     def logout():
         # Pour déconnecter l'utilisateur on enlève user_id de la variable session
         session.pop('user_id', None)
-        return redirect(url_for('display_tweets'))
+        return redirect(url_for('display_posts'))
 
 
 

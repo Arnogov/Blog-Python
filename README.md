@@ -9,7 +9,7 @@
 ## Lancer l'application
 - set FLASK_APP=application.py
 
-##Automatisation mise à jour
+## Automatisation mise à jour
 - set FLASK_ENV=development
 
 ## Lancer le run

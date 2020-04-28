@@ -1,11 +1,19 @@
+# Import de fonctions depuis le Framework Flask
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# Import d'une fonction pour convertir un template HTML en y injectant des variables python
 from flask import render_template
 from flask import request
 from flask import redirect, url_for
 import os
+from flask_sqlalchemy import SQLAlchemy
+from flask import abort
+from variables import session_secret
+from flask import session
+
+from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = session_secret
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 db = SQLAlchemy(app)
 
@@ -69,7 +77,7 @@ def login():
         user = User.query.filter_by(email=request.form['email']).first()
         if user != None and user.password == request.form['password'] :
             session['user_id'] = user.id
-            return redirect(url_for('display_posts'))
+            return redirect(url_for('display_users'))
         else:
             return render_template('login.html', error="Email et/ou mot de passe incorrect")
 
@@ -77,4 +85,4 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
-    return redirect(url_for('display_posts'))
+    return redirect(url_for('display_users'))

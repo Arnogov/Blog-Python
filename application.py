@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import abort
 from variables import session_secret
 from flask import session
+from flask import request
 
 
 from datetime import datetime
@@ -108,21 +109,17 @@ def display_author_posts(user_id):
 
 @app.route('/posts/create', methods=['POST', 'GET'])
 def display_create_post():
-    if not 'user_id' in session :
+    if not 'user_id' in session:
         return redirect(url_for('login'))
     if request.method == 'GET':
         users = User.query.all()
         return render_template('create_post.html', users=users)
     else:
         user_id = session['user_id']
+        title = request.form['title']
+        abstract = request.form['abstract']
         content = request.form['content']
-        image = None
-        f = request.files['image']
-        if f.filename != '' :
-            filepath = os.path.join(app.root_path, 'static', 'uploads', f.filename)
-            f.save(filepath)
-            image = url_for('static', filename='uploads/'+f.filename)
-        post = Post(user_id=user_id, content=content, image=image)
+        post = Post(user_id=user_id, title=title, abstract=abstract, content=content)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('display_posts'))
@@ -137,12 +134,7 @@ def edit_post(post_id):
         users = User.query.all()
         return render_template('edit_post.html', post=post, users=users)
     else:
-        post.user_id = request.form['user_id']
-        post.content = request.form['content']
-        f = request.files['image']
-        if f.filename != '' :
-            filepath = os.path.join(app.root_path, 'static', 'uploads', f.filename)
-            f.save(filepath)
-            post.image = url_for('static', filename='uploads/'+f.filename)
+        post.title = request.form['title']
+        post.abstract = request.form['abstract']
         db.session.commit()
         return redirect(url_for('display_posts'))
